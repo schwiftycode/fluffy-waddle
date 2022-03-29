@@ -1,0 +1,10 @@
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.field > div {
+  display: flex;
+  gap: 8px;
+}

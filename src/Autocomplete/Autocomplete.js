@@ -8,10 +8,13 @@ export default class Autocomplete {
   inputEl;
   data = null;
   isOpen = false;
-
+  searchFields = [];
+  displayFields = [];
   constructor(wrapperEl, config) {
     this.wrapperEl = wrapperEl;
     this.data = config.data;
+    this.searchFields = config.searchFields;
+    this.displayFields = config.displayFields;
     this.resultsEl = config.resultsEl;
     this.renderResult = config.renderResult;
     this.onSelect = config.onSelect;
@@ -34,7 +37,14 @@ export default class Autocomplete {
 
       if (dataItem) {
         this.onSelect(dataItem);
-        this.inputEl.value = dataItem.label;
+        let inputValue = '';
+        for (const field of this.displayFields) {
+          inputValue +=
+            inputValue.length > 0
+              ? ` ${dataItem[field]}`
+              : dataItem[field];
+        }
+        this.inputEl.value = inputValue;
         this.close();
       }
     });
@@ -65,11 +75,15 @@ export default class Autocomplete {
     if (!value) {
       this.renderList([null]);
     } else if (this.data) {
-      this.renderList(
-        this.data.filter((dataItem) =>
-          dataItem.label.includes(value),
-        ),
-      );
+      const filteredData = this.data.filter((dataItem) => {
+        for (const field of this.searchFields) {
+          if (dataItem[field].includes(value)) {
+            return true;
+          }
+        }
+        return false;
+      });
+      this.renderList(filteredData);
     }
   };
 

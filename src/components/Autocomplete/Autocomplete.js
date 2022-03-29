@@ -51,9 +51,9 @@ export default window.customElements.define(
       return `
         <fieldset id="${this.id}-ac-root" class="field">
             <div>
-                <label for="countries-autocomplete">Countries</label>
+                <label for="${this.id}-autocomplete">${this.title}:</label>
                 <div class="autocomplete">
-                    <input id="countries-autocomplete" type="text" autocomplete="off" placeholder="Choose a country" />
+                    <input id="${this.id}-autocomplete" type="text" autocomplete="off" placeholder="${this.placeholder}" />
                     <div id="${this.id}-ac-results" class="autocomplete__results">
                     </div>
                 </div>
@@ -118,7 +118,11 @@ export default window.customElements.define(
       } else if (this.data) {
         const filteredList = this.data.filter((dataItem) => {
           for (const field of this.searchFields) {
-            if (dataItem[field].includes(value)) {
+            if (
+              dataItem[field]
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            ) {
               return true;
             }
           }

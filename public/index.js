@@ -29,6 +29,9 @@ const usersAC = document.getElementById('users-ac');
 const selectedUser = document.getElementById(
   'users-ac-selected-result',
 );
+const selectedUserAvatar = document.getElementById(
+  'users-ac-selected-result-avatar',
+);
 getUsers()
   .then((users) => {
     usersAC.initialize({
@@ -44,7 +47,8 @@ getUsers()
       },
       onSelect: (user) => {
         console.log('select', user);
-        selectedUser.innerText = `${user.first_name} ${user.last_name} (${user.id})`;
+        selectedUser.innerText = `${user.first_name} ${user.last_name} (${user.email})`;
+        selectedUserAvatar.style.background = `url(${user.avatar})`;
       },
     });
   })

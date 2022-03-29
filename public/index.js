@@ -1,15 +1,15 @@
-import Autocomplete from '../src/Autocomplete/Autocomplete';
+import {} from '../src/components/Autocomplete/Autocomplete';
 import countries from '../data/countries.json';
-
-import './styles.css';
 import { getUsers } from '../src/api/users';
 
-const countriesWrapper = document.getElementById('countries');
-const countriesResults = document.getElementById('countries-results');
-const selectedCountry = document.getElementById('selected-country');
-countriesWrapper.autocomplete = new Autocomplete(countriesWrapper, {
+import './styles.css';
+
+const selectedCountry = document.getElementById(
+  'countries-ac-selected-result',
+);
+const countriesAC = document.getElementById('countries-ac');
+countriesAC.initialize({
   data: countries,
-  resultsEl: countriesResults,
   searchFields: ['label'],
   displayFields: ['label'],
   renderResult: (country) => {
@@ -25,30 +25,26 @@ countriesWrapper.autocomplete = new Autocomplete(countriesWrapper, {
   },
 });
 
-function getName(user) {
-  return `${user.first_name} ${user.last_name}`;
-}
-
-const usersWrapper = document.getElementById('users');
-const usersResults = document.getElementById('users-results');
-const selectedUsers = document.getElementById('selected-users');
+const usersAC = document.getElementById('users-ac');
+const selectedUser = document.getElementById(
+  'users-ac-selected-result',
+);
 getUsers()
   .then((users) => {
-    usersWrapper.autocomplete = new Autocomplete(usersWrapper, {
+    usersAC.initialize({
       data: users,
-      resultsEl: usersResults,
       searchFields: ['first_name', 'last_name'],
       displayFields: ['first_name', 'last_name'],
       renderResult: (user) => {
         const item = document.createElement('div');
         item.innerText = user
-          ? getName(user)
+          ? `${user.first_name} ${user.last_name}`
           : 'Start typing for options';
         return item;
       },
       onSelect: (user) => {
         console.log('select', user);
-        selectedUsers.innerText = getName(user);
+        selectedUser.innerText = `${user.first_name} ${user.last_name} (${user.id})`;
       },
     });
   })

@@ -1,10 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
 body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  font-family: 'Roboto', sans-serif;
+  padding: 24px;
 }
 
 .field > div {
   display: flex;
   gap: 8px;
+}
+
+.field label {
+    font-weight: 400;
+}
+
+.section strong {
+    font-weight: 400;
+}
+
+.section span {
+    font-weight: 100;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.section {
+    border: solid 1px #eeeeee;
+    box-shadow: 0px 3px 36px -12px rgba(0,0,0,0.4);
+    padding: 24px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+#users-ac-selected-result-avatar {
+    width: 75px;
+    height: 75px;
+    background-size: cover !important;
+    background-position: center center !important;
+    border: solid 1px gray;
 }
